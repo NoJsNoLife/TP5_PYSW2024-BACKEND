@@ -55,16 +55,12 @@ ticketCtrl.getTicket = async (req, res) => {
 
 ticketCtrl.editTicket = async (req, res) => {
     try {
-        if(req.body.dni) {
-            const espectador = await Espectador.findOne({"dni": req.body.dni});
-            req.body.espectador = espectador;
-        } else {
-            await Ticket.updateOne({_id: req.params.id}, { $set: req.body});
-        }
+        await Ticket.updateOne({_id: req.params.id}, { $set: req.body});
         res.status(200).json({
             'status': '1',
             'msg': 'Ticket updated'
         })
+        
     } catch (error) {
         res.status(400).json({
             'status': '0',
@@ -75,7 +71,7 @@ ticketCtrl.editTicket = async (req, res) => {
 
 ticketCtrl.deleteTicket = async (req, res)=>{
     try {
-        await Ticket.findByIdAndDelete({_id: req.params.id});
+        await Ticket.findByIdAndDelete(req.params.id);
         res.status(200).json({
             status: '1',
             msg: 'Ticket removed'
@@ -83,7 +79,8 @@ ticketCtrl.deleteTicket = async (req, res)=>{
     } catch (error) {
         res.status(400).json({
             'status': '0',
-            'msg': 'Error procesando la operacion'
+            'msg': 'Error procesando la operacion',
+            'error': error.message
         })
     }
 }

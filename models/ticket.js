@@ -9,7 +9,7 @@ const TicketSchema = new Schema({
     espectador: {
         type: Schema.Types.ObjectId,
         ref: Espectador,
-        required: true
+        required: false
     }
 
 })

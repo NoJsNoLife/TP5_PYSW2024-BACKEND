@@ -20,18 +20,30 @@ espectadorCtrl.createEspectador = async (req, res) => {
     }
 }
 
-espectadorCtrl.getEspectador = async (req, res) => {
+espectadorCtrl.getEspectadorByDni = async (req, res) => {
     try{
-        const espectador = await Espectador.findByDni(req.params.dni);
+        const espectador = await Espectador.find({"dni": req.params.dni});
         res.status(200).json(espectador);
     }catch(error){
         res.status(404).json({
             'status': '0',
-            'msg': 'Error procesando la operacion'
+            'msg': 'Error procesando la operacion',
+            'error': error.message
         })
     }
-    
-    
+}
+
+espectadorCtrl.getEspectador = async (req, res) => {
+    try{
+        const espectador = await Espectador.find({"_id": req.params.id});
+        res.status(200).json(espectador);
+    }catch(error){
+        res.status(404).json({
+            'status': '0',
+            'msg': 'Error procesando la operacion',
+            'error': error.message
+        })
+    }
 }
 
 espectadorCtrl.editEspectador = async (req, res) => {

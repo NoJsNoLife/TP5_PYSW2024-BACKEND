@@ -28,7 +28,7 @@ transaccionCtrl.getTransaccionesByEmail = async (req, res) => {
 
 transaccionCtrl.getTransaccionesByMonedas = async (req, res) => {
     try {
-        let transacciones = await Transaccion.find({"monedaOrigen": req.query.origen, "monedaDestino": req.query.destino});
+        let transacciones = await Transaccion.find({"monedaOrigen": req.query.from, "monedaDestino": req.query.to});
         res.json(transacciones);
     } catch (error) {
         res.status(500).json({
